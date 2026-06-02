@@ -30,9 +30,9 @@ agentRouter.get("/get-document-details", checkAuthentication, agentController.ge
 // for update the proerty 
 agentRouter.patch("/update-basic-deatils", checkAuthentication, agentController.updateBasicDetails);
 agentRouter.patch("/update-property-details", checkAuthentication, agentController.updatePropertyDetails);
-agentRouter.patch("/update-configuration-details", checkAuthentication,multerUpload.fields([{ "name": "floorPlanUpload", maxCount: 5 }]), agentController.addConfiguration);
-agentRouter.patch("/update-uploadMedia-details", checkAuthentication, multerUpload.fields([{ "name": "propertyImg", maxCount: 5 }, { "name": "propertyVideo", maxCount: 2 }]) ,agentController.addUploadMedia);
-agentRouter.patch("/update-document-details", checkAuthentication,  multerUpload.fields([{ "name": "certificate", maxCount: 2 }, { "name": "floorPlan", maxCount: 2 }, { "name": "legalNoc", maxCount: 2 }, { "name": "ownership", maxCount: 2 }]), agentController.addDocument);
+agentRouter.patch("/update-configuration-details", checkAuthentication,multerUpload.fields([{ "name": "floorPlanUpload", maxCount: 5 }]), agentController.updateConfiguration);
+agentRouter.patch("/update-uploadMedia-details", checkAuthentication, multerUpload.fields([{ "name": "propertyImg", maxCount: 5 }, { "name": "propertyVideo", maxCount: 2 }]) ,agentController.updateUploadMedia);
+agentRouter.patch("/update-document-details", checkAuthentication,  multerUpload.fields([{ "name": "certificate", maxCount: 2 }, { "name": "floorPlan", maxCount: 2 }, { "name": "legalNoc", maxCount: 2 }, { "name": "ownership", maxCount: 2 }]), agentController.updateDocument);
 
 
 export default agentRouter;
