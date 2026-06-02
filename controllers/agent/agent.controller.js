@@ -107,9 +107,10 @@ export const updatePropertyDetails = asyncHandler(async (req, res, next) => {
 export const updateConfiguration = asyncHandler(async (req, res, next) => {
     const { pid } = req.query;
     const { floorPlanUpload } = req.files;
+    console.log("aya hai", req.body, pid, floorPlanUpload);
     const oldConfiguration = await fetchConfigurationService(pid);
-    const removeFloorPlan = await asyncDeleteFromCloudinary(oldConfiguration?.floorPlanUpload);
-    const newFloorPlan = await asyncUploadToCloudinary(floorPlanUpload);
+    const removeFloorPlan = await asyncDeleteFromCloudinary(oldConfiguration?.floorPlanUpload, "image");
+    const newFloorPlan = await asyncUploadToCloudinary(floorPlanUpload, "image");
     const updateConfiguration = await updateConfigurationService({ ...req.body, floorPlanUpload: newFloorPlan }, pid);
 
     return res.status(201).json(
@@ -121,11 +122,12 @@ export const updateConfiguration = asyncHandler(async (req, res, next) => {
 export const updateUploadMedia = asyncHandler(async (req, res, next) => {
     const { pid } = req.query;
     const { propertyImg, propertyVideo } = req.files;
+      console.log("aya hai", pid, propertyImg, propertyVideo);
     const oldUploadMedia = await fetchUploadMediaService(pid);
-    const removepropertyImg = await asyncDeleteFromCloudinary(oldUploadMedia?.propertyImg);
-    const removepropertyVideo = await asyncDeleteFromCloudinary(oldUploadMedia?.propertyVideo);
-    const newPropertyImg = await asyncUploadToCloudinary(propertyImg);
-    const newPropertyVideo = await asyncUploadToCloudinary(propertyVideo);
+    const removepropertyImg = await asyncDeleteFromCloudinary(oldUploadMedia?.propertyImg, "image");
+    const removepropertyVideo = await asyncDeleteFromCloudinary(oldUploadMedia?.propertyVideo, "video");
+    const newPropertyImg = await asyncUploadToCloudinary(propertyImg, "image");
+    const newPropertyVideo = await asyncUploadToCloudinary(propertyVideo, "video");
     const updateConfiguration = await updateConfigurationService({ propertyImg: newPropertyImg }, { propertyVideo: newPropertyVideo }, pid);
 
     return res.status(201).json(
@@ -139,14 +141,14 @@ export const updateDocument = asyncHandler(async (req, res, next) => {
     const { pid } = req.query;
     const { certificate, floorPlan, legalNoc, ownership } = req.files;
     const oldDocument = await fetchDocumentService(pid);
-    const removeCertificate = await asyncDeleteFromCloudinary(oldDocument?.certificate);
-    const removeFloorPlan = await asyncDeleteFromCloudinary(oldDocument?.floorPlan);
-    const removeLegalNoc = await asyncDeleteFromCloudinary(oldDocument?.legalNoc);
-    const removeOwnership = await asyncDeleteFromCloudinary(oldDocument?.ownership);
-    const newCertificate = await asyncUploadToCloudinary(certificate);
-    const newFloorPlan = await asyncUploadToCloudinary(floorPlan);
-    const newLegalNoc = await asyncUploadToCloudinary(legalNoc);
-    const newOwnership = await asyncUploadToCloudinary(ownership);
+    const removeCertificate = await asyncDeleteFromCloudinary(oldDocument?.certificate,"raw");
+    const removeFloorPlan = await asyncDeleteFromCloudinary(oldDocument?.floorPlan, "raw");
+    const removeLegalNoc = await asyncDeleteFromCloudinary(oldDocument?.legalNoc, "raw");
+    const removeOwnership = await asyncDeleteFromCloudinary(oldDocument?.ownership,"raw");
+    const newCertificate = await asyncUploadToCloudinary(certificate, "raw");
+    const newFloorPlan = await asyncUploadToCloudinary(floorPlan, "raw");
+    const newLegalNoc = await asyncUploadToCloudinary(legalNoc, "raw");
+    const newOwnership = await asyncUploadToCloudinary(ownership, "raw");
     const updateConfiguration = await updateConfigurationService({ certificate: newCertificate }, { floorPlan: newFloorPlan }, { legalNoc: newLegalNoc }, { ownership: newOwnership }, pid);
     return res.status(201).json(
         {
