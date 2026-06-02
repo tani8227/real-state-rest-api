@@ -20,11 +20,11 @@ agentRouter.post("/add-document-details", checkAuthentication, multerUpload.fiel
 
 
 // for get the property 
-agentRouter.get("/get-basic-deatils", checkAuthentication, agentController.addBasicDeatils);
-agentRouter.get("/get-property-details", checkAuthentication, agentController.addPropertyDetails);
-agentRouter.get("/get-configuration-details", checkAuthentication, agentController.addConfiguration);
-agentRouter.get("/get-uploadMedia-details", checkAuthentication, agentController.addUploadMedia);
-agentRouter.get("/get-document-details", checkAuthentication, agentController.addDocument);
+agentRouter.get("/get-basic-deatils", checkAuthentication, agentController.getBasicDetails);
+agentRouter.get("/get-property-details", checkAuthentication, agentController.getPropertyDetails);
+agentRouter.get("/get-configuration-details", checkAuthentication, agentController.getConfigurationDetails);
+agentRouter.get("/get-uploadMedia-details", checkAuthentication, agentController.getUploadMediaDetails);
+agentRouter.get("/get-document-details", checkAuthentication, agentController.getDocumentDetails);
 
 
 // for update the proerty 
